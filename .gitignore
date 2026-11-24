@@ -4,3 +4,9 @@ dist
 
 # Submission documents, only submitted to Sunway
 /submission
+# ML data and outputs (manifest is kept)
+ml/data/*
+!ml/data/manifest.csv
+ml/runs/
+ml/exports/
+ml/.env

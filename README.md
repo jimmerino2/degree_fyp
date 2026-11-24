@@ -1,6 +1,6 @@
 # Rootline (prototype)
 
-Frontend-only phone prototype for a chilli plant health app for Malaysian smallholders. All data is mock data and all "AI" results are hard-coded. See [DESIGN.md](DESIGN.md) for the full spec.
+Phone prototype (installable PWA) for a chilli plant health app for Malaysian smallholders. All data is mock data and all "AI" results are hard-coded. See [DESIGN.md](DESIGN.md) for the full spec.
 
 ## Run it
 
@@ -10,6 +10,23 @@ npm run dev        # http://localhost:5173
 npm run build      # production build to dist/
 npm run test       # smoke tests (every screen renders)
 ```
+
+## Install on Android (PWA)
+
+The app is a Progressive Web App: after one online visit it installs to the home screen and opens with no signal. The service worker is only built for production, so test with `npm run build && npm run preview` (http://localhost:4173), not `npm run dev`.
+
+Service workers need HTTPS or `localhost`. A LAN address such as `http://192.168.x.x:4173` will load but **will not** install or work offline. To test on a phone, use one of:
+
+- **USB:** connect the phone, open `chrome://inspect/#devices` on the PC, add port forwarding `4173 → localhost:4173`, then open `http://localhost:4173` in Chrome on the phone.
+- **Deploy** `dist/` to any static HTTPS host (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
+
+Then in Chrome on the phone: menu → **Install app** (or "Add to Home screen"). To check offline mode: open the app once, turn on airplane mode, close it and open it again from the home screen.
+
+Icons are generated from `public/icon.svg` with `npx pwa-assets-generator` (settings in `pwa-assets.config.ts`). Model files placed under `public/models/` are cached on first use (see `vite.config.ts`).
+
+## Backend
+
+A FastAPI backend lives in [backend/](backend/README.md). In dev, Vite proxies `/api/*` to it on port 8000.
 
 ## Using the prototype
 
